@@ -10,7 +10,7 @@ import * as sectorActions from "../../redux/actions/sectorActions";
 
 import { AiFillCloseCircle } from "react-icons/ai";
 
-class ModalCreate extends Component {
+class ModalEdit extends Component {
 	static propTypes = {
 		onClose: PropTypes.func,
 	};
@@ -19,17 +19,31 @@ class ModalCreate extends Component {
 		super(props);
 
 		this.state = {
-			visible  : false,
-			isLoading: false,
-			roles	 : [],
-			roleInput: '',
+			visible     : false,
+			isLoading   : false,
+			id	   	    : 0,
+			activeSector: {},
+			roles	    : [],
+			roleInput   : '',
 		};
 	}
 
-	onOpen = () => {
+	onOpen = (id) => {
 		this.setState({
 			visible  : true,
+			id 	     : id,
 			roleInput: '',
+		}, () => {
+			const activeSector = this.props.sectors.find(sector => sector.id === id);
+
+			setTimeout(() => {
+				this.form.setFieldValue('name', activeSector.name);
+				
+				this.setState({
+					roles: activeSector.roles,
+					activeSector: activeSector,
+				});
+			}, 100);
 		});
 	};
 
@@ -101,13 +115,13 @@ class ModalCreate extends Component {
 	};
 
 	onFinish = (values) => {
-		const { roles } = this.state;
-		
+		const { id, roles, activeSector } = this.state;
+
 		this.setState({
 			isLoading: true,
 		});
 
-		if(this.props.sectors.find(sector => sector.name === values.name)) {
+		if(this.props.sectors.filter(sector => sector.id !== activeSector.id).find(sector => sector.name === values.name)) {
 			notification.error({
 				message: 'Erro',
 				description: 'Este setor já existe.',
@@ -120,8 +134,8 @@ class ModalCreate extends Component {
 			return;
 		}
 
-		this.props.sectorCreate({
-			id: Math.floor(Math.random() * 1000000),
+		this.props.sectorUpdate({
+			id: id,
 			name: values.name,
 			roles: roles,
 		});
@@ -135,7 +149,7 @@ class ModalCreate extends Component {
 		return (
 			<Modal
 				visible={visible}
-				wrapClassName="modal-create-sector modal-mobile-full"
+				wrapClassName="modal-edit-sector modal-mobile-full"
 				footer={null}
 				centered
 				width={780}
@@ -144,8 +158,8 @@ class ModalCreate extends Component {
 				autoFocusButton={false}
 				focusTriggerAfterClose={false}
 			>
-				<h2>Adicionar setor</h2>
-				<p className="subtitle">Preencha as informações abaixo para cadastrar um novo setor.</p>
+				<h2>Editar setor</h2>
+				<p className="subtitle">Preencha as informações abaixo para editar esse setor.</p>
 				<Form
 					ref={el => this.form = el}
 					layout="vertical"
@@ -187,8 +201,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		sectorCreate: (data) => dispatch(sectorActions.sectorCreate(data)),
+		sectorUpdate: (data) => dispatch(sectorActions.sectorUpdate(data)),
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(ModalCreate);
+export default connect(mapStateToProps, mapDispatchToProps, null, {forwardRef: true})(ModalEdit);

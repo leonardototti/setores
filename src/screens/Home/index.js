@@ -11,6 +11,7 @@ import { MdEdit } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 
 import ModalCreate from "./modalCreate";
+import ModalEdit from "./modalEdit";
 
 class Home extends Component {
 	constructor(props) {
@@ -32,6 +33,10 @@ class Home extends Component {
 
 	onNewSector = () => {
 		this.modalCreate.onOpen();
+	}
+
+	onEditSector = (id) => {
+		this.modalEdit.onOpen(id);
 	}
 
 	onDeleteSector = (sector) => {
@@ -86,7 +91,7 @@ class Home extends Component {
 													<p>Nenhum cargo cadastrado nesse setor.</p>
 												}
 												<div className="action-container">
-													<Button size="small" shape="circle" type="primary"><MdEdit size="20px" /></Button>
+													<Button size="small" shape="circle" type="primary" onClick={() => this.onEditSector(sector.id)}><MdEdit size="20px" /></Button>
 													<Button size="small" shape="circle" type="danger" onClick={() => this.onDeleteSector(sector)}><FaTrash size="16px" /></Button>
 												</div>
 											</div>
@@ -101,6 +106,9 @@ class Home extends Component {
 				</div>
 				<ModalCreate
 					ref={el => this.modalCreate = el}
+				/>
+				<ModalEdit
+					ref={el => this.modalEdit = el}
 				/>
 			</main>
 		);

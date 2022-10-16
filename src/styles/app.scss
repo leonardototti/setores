@@ -560,6 +560,27 @@ input::placeholder {
 			}
 		}
 	}
+	.ant-modal-wrap {
+		&.modal-mobile-full {
+			@include mobile {
+				.ant-modal {
+					margin:0;
+					padding:0;
+					width:100% !important;
+					max-width:100%;
+					min-height:100%;
+					.ant-modal-content {
+						min-height:100vh;
+						background:#ffffff;
+						border-radius:0 !important;
+						.ant-modal-body {
+							padding:20px;
+						}
+					}
+				}
+			}
+		}
+	}
 }
 
 .ant-modal-content {
