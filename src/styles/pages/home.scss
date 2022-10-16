@@ -32,15 +32,18 @@ body.page-home {
 			margin-top: 30px;
 
 			.ant-collapse {
-				background-color: rgba($primary-color, 0.05);
-				border-color: rgba($primary-color, 0.2);
-				border-radius: $border-radius;
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				background-color: none;
+				border: none;
 
 				.ant-collapse-item {
-					border-color: rgba($primary-color, 0.2);
+					border: 1px solid rgba($primary-color, 0.2);
 					border-radius: $border-radius;
 
 					.ant-collapse-header {
+						background-color: rgba($primary-color, 0.05);
 						font-weight: 500;
 					}
 

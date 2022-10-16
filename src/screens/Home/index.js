@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Form, Input, Select, Button, notification, Collapse } from "antd";
+import { Row, Col, Form, Input, Select, Button, notification, Collapse, Modal } from "antd";
 
 import { connect } from "react-redux";
 
@@ -32,6 +32,19 @@ class Home extends Component {
 
 	onNewSector = () => {
 		this.modalCreate.onOpen();
+	}
+
+	onDeleteSector = (sector) => {
+		Modal.confirm({
+			title: 'Excluir setor',
+			content: 'Tem certeza que deseja excluir este setor?',
+			okText: 'Sim',
+			cancelText: 'Não',
+			centered: true,
+			onOk: () => {
+				this.props.sectorDelete(sector);
+			},
+		});
 	}
 
 	render() {
@@ -74,7 +87,7 @@ class Home extends Component {
 												}
 												<div className="action-container">
 													<Button size="small" shape="circle" type="primary"><MdEdit size="20px" /></Button>
-													<Button size="small" shape="circle" type="danger"><FaTrash size="16px" /></Button>
+													<Button size="small" shape="circle" type="danger" onClick={() => this.onDeleteSector(sector)}><FaTrash size="16px" /></Button>
 												</div>
 											</div>
 										</Panel>
