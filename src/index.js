@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { ROUTE_PATH } from "./config/general";
 
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+
+import { persistor, store } from "./redux/store/configureStore";
+
 import Main from "./screens/Main";
 
 if( process.env.NODE_ENV !== 'development' )
@@ -25,9 +30,13 @@ if( process.env.NODE_ENV !== 'development' )
 class App extends Component {
 	render() {
 		return (
-			<BrowserRouter basename={ROUTE_PATH}>
-				<Main />
-			</BrowserRouter>
+			<Provider store={store}>
+				<PersistGate loading={null} persistor={persistor}>			
+					<BrowserRouter basename={ROUTE_PATH}>
+						<Main />
+					</BrowserRouter>
+				</PersistGate>
+			</Provider>
 		);
 	}
 }
