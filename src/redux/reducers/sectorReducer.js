@@ -1,7 +1,4 @@
-import { REHYDRATE } from "redux-persist";
 import sectorConstants from "../constants/sectorConstants";
-
-const reducerKey = "sector";
 
 const defaultState = {
 	sectors: [],
@@ -14,20 +11,6 @@ export default function reducer(state = defaultState, action) {
 
 	switch( action.type )
 	{
-		case REHYDRATE:
-			let persistUpdate = {};
-
-			if( action.payload && action.payload[reducerKey] )
-			{
-				const persistCache = action.payload[reducerKey];
-
-				persistUpdate = {
-					sectors: persistCache.sectors || defaultState.sectors,
-				};
-			}
-
-			return Object.assign({}, state, persistUpdate);
-
 		case sectorConstants.SECTOR_CREATE:
 			newData = action.payload;
 
