@@ -28,7 +28,8 @@ class ModalCreate extends Component {
 
 	onOpen = () => {
 		this.setState({
-			visible: true,
+			visible  : true,
+			roleInput: '',
 		});
 	};
 
@@ -52,7 +53,16 @@ class ModalCreate extends Component {
 		if(roles.find(role => role.name === roleInput)) {
 			notification.error({
 				message: 'Erro',
-				description: 'Este cargo já existe.',
+				description: 'Este cargo já existe nesse setor.',
+			});
+
+			return;
+		}
+
+		if(this.props.sectors.find(sector => sector.roles.find(role => role.name === roleInput))) {
+			notification.error({
+				message: 'Erro',
+				description: 'Este cargo já existe em outro setor.',
 			});
 
 			return;
@@ -85,7 +95,7 @@ class ModalCreate extends Component {
 
 			notification.error({
 				message: 'Erro',
-				description: 'É necessário adicionar pelo menos um cargo.',
+				description: 'É necessário adicionar pelo menos um cargo a esse setor.',
 			});
 		}
 	};
@@ -96,6 +106,19 @@ class ModalCreate extends Component {
 		this.setState({
 			isLoading: true,
 		});
+
+		if(this.props.sectors.find(sector => sector.name === values.name)) {
+			notification.error({
+				message: 'Erro',
+				description: 'Este setor já existe.',
+			});
+
+			this.setState({
+				isLoading: false,
+			});
+
+			return;
+		}
 
 		this.props.sectorCreate(
 			{
