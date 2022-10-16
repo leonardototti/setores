@@ -21,6 +21,10 @@ class Home extends Component {
 		document.body.classList.remove("page-home");
 	}
 
+	onNewSector = () => {
+		// TODO
+	}
+
 	render() {
 		return (
 			<main id="site-main" role="main">
