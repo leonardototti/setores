@@ -8,6 +8,8 @@ import { connect } from "react-redux";
 
 import * as sectorActions from "../../redux/actions/sectorActions";
 
+import { AiFillCloseCircle } from "react-icons/ai";
+
 class ModalCreate extends Component {
 	static propTypes = {
 		onClose: PropTypes.func,
@@ -47,8 +49,7 @@ class ModalCreate extends Component {
 	onRoleAdd = () => {
 		const { roles, roleInput } = this.state;
 
-		if(roles.includes(roleInput)) {
-
+		if(roles.find(role => role.name === roleInput)) {
 			notification.error({
 				message: 'Erro',
 				description: 'Este cargo já existe.',
@@ -57,20 +58,22 @@ class ModalCreate extends Component {
 			return;
 		}
 		
-		if( roleInput )
-		{
+		if(roleInput) {
 			this.setState({
-				roles: [...roles, roleInput],
+				roles: [...roles, {
+					id: Math.floor(Math.random() * 1000000),
+					name: roleInput,
+				}],
 				roleInput: '',
 			});
 		}
 	};
 
-	onRoleDelete = (role) => {
+	onRoleDelete = (id) => {
 		const { roles } = this.state;
 
 		this.setState({
-			roles: roles.filter((item) => item !== role),
+			roles: roles.filter((role) => role.id !== id),
 		});
 	};
 
@@ -88,6 +91,8 @@ class ModalCreate extends Component {
 	};
 
 	onFinish = (values) => {
+		const { roles } = this.state;
+		
 		this.setState({
 			isLoading: true,
 		});
@@ -95,8 +100,8 @@ class ModalCreate extends Component {
 		this.props.sectorCreate(
 			{
 				id: Math.floor(Math.random() * 1000000),
-				name: values.nome,
-				roles: this.state.roles,
+				name: values.name,
+				roles: roles,
 			}
 		);
 
@@ -126,7 +131,7 @@ class ModalCreate extends Component {
 					scrollToFirstError
 					onFinish={this.onFinish}
 				>
-					<Form.Item name="nome" rules={[{required: true, message: "Campo obrigatório."}]}>
+					<Form.Item name="name" rules={[{required: true, message: "Campo obrigatório."}]}>
 						<FloatLabelInput placeholder="Nome" disabled={isLoading} />
 					</Form.Item>
 					<Row gutter={10} className="mb-20">
@@ -140,8 +145,8 @@ class ModalCreate extends Component {
 					<div className="role-container">
 						{
 							roles.map((role, index) => (
-								<div className="role-item" key={index} onClick={() => this.onRoleDelete(role)}>
-									<span>{role}</span>
+								<div className="role-item" key={role.id} onClick={() => this.onRoleDelete(role.id)}>
+									{role.name} <AiFillCloseCircle size="20px" />
 								</div>
 							))
 						}
