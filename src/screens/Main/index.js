@@ -42,7 +42,6 @@ class Main extends Component {
 				</Switch>
 				<footer>
 					<p>Desenvolvido por Leonardo Totti</p>
-					<a href="http://" target="_blank" rel="noopener noreferrer"></a>
 					<p><a href="https://github.com/leonardototti/setores" target="_blank" rel="noopener noreferrer">Repositório</a> | <a href="https://www.linkedin.com/in/leonardototti/" target="_blank" rel="noopener noreferrer">Linkedin</a> | <a href="https://github.com/leonardototti" target="_blank" rel="noopener noreferrer">Github</a></p>
 				</footer>
 			</ConfigProvider>

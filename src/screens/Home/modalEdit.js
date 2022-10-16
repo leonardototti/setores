@@ -62,7 +62,7 @@ class ModalEdit extends Component {
 	};
 
 	onRoleAdd = () => {
-		const { roles, roleInput } = this.state;
+		const { roles, roleInput, activeSector } = this.state;
 
 		if(roles.find(role => role.name === roleInput)) {
 			notification.error({
@@ -73,7 +73,7 @@ class ModalEdit extends Component {
 			return;
 		}
 
-		if(this.props.sectors.find(sector => sector.roles.find(role => role.name === roleInput))) {
+		if(this.props.sectors.filter(sector => sector.id !== activeSector.id).find(sector => sector.roles.find(role => role.name === roleInput))) {
 			notification.error({
 				message: 'Erro',
 				description: 'Este cargo já existe em outro setor.',
@@ -138,6 +138,11 @@ class ModalEdit extends Component {
 			id: id,
 			name: values.name,
 			roles: roles,
+		});
+
+		notification.success({
+			message: 'Sucesso',
+			description: 'Setor atualizado com sucesso.',
 		});
 
 		this.onClose();
