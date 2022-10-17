@@ -22,20 +22,20 @@ Esse projeto foi desenvolvido como um desafio para SEA Solutions.
 Clone o projeto e acesse a pasta:
 
 ```bash
-$ git clone https://github.com/leonardototti/setores.git
-$ cd setores
+git clone https://github.com/leonardototti/setores.git
+cd setores
 ```
 
 Instale as dependências:
 
 ```bash
-$ yarn install
+yarn install
 ```
 
 E inicie o projeto:
 
 ```bash
-$ yarn start
+yarn start
 ```
 
 Essa sequencia iniciará o app no modo de desenvolvimento.\
