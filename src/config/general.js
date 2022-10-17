@@ -13,7 +13,7 @@ export const ROUTE_PATH  = process.env.PUBLIC_URL || '/';
 // -----------------------------------------------------------------------------
 // SEO
 // -----------------------------------------------------------------------------
-export const SEO_TITLE     = "Sea Solutions";
+export const SEO_TITLE     = "SEA Solutions";
 export const SEO_SEPARATOR = " - ";
 
 // -----------------------------------------------------------------------------
