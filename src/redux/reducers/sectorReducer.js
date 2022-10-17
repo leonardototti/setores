@@ -1,7 +1,82 @@
 import sectorConstants from "../constants/sectorConstants";
 
 const defaultState = {
-	sectors: [],
+	sectors: [
+		{
+			id: 1,
+			name: 'Administrativo',
+			roles: [
+				{
+					id: 1,
+					name: 'Cargo 1',
+				},
+				{
+					id: 2,
+					name: 'Cargo 2',
+				},
+			],
+		},
+		{
+			id: 2,
+			name: 'Financeiro',
+			roles: [
+				{
+					id: 1,
+					name: 'Cargo 3',
+				},
+				{
+					id: 2,
+					name: 'Cargo 4',
+				},
+			],
+		},
+		{
+			id: 3,
+			name: 'Comercial',
+			roles: [
+				{
+					id: 1,
+					name: 'Cargo 5',
+				},
+				{
+					id: 2,
+					name: 'Cargo 6',
+				},
+				{
+					id: 2,
+					name: 'Cargo 7',
+				},
+				{
+					id: 2,
+					name: 'Cargo 8',
+				},
+			],
+		},
+		{
+			id: 4,
+			name: 'Recursos Humanos',
+			roles: [
+				{
+					id: 1,
+					name: 'Cargo 9',
+				},
+				{
+					id: 2,
+					name: 'Cargo 10',
+				},
+			],
+		},
+		{
+			id: 5,
+			name: 'Operacional',
+			roles: [
+				{
+					id: 1,
+					name: 'Cargo 11',
+				},
+			],
+		},
+	],
 };
 
 export default function reducer(state = defaultState, action) {

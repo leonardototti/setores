@@ -69,7 +69,6 @@ class Home extends Component {
 							sectors.length > 0 ?
 							<Collapse
 								defaultActiveKey={sectors[0].id}
-								accordion
 								expandIconPosition="end"
 							>
 								{

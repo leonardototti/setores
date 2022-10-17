@@ -162,6 +162,7 @@ class ModalEdit extends Component {
 				onCancel={this.onClose}
 				autoFocusButton={false}
 				focusTriggerAfterClose={false}
+				maskClosable={false}
 			>
 				<h2>Editar setor</h2>
 				<p className="subtitle">Preencha as informações abaixo para editar esse setor.</p>
